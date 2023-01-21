@@ -31,7 +31,7 @@ const SignupForm = () => {
 
             <Grid item xs={5} container direction="column">
               <Typography variant="h4" align="center">
-                Create your account
+                Log In
               </Typography>
 
               <TextField
@@ -51,15 +51,6 @@ const SignupForm = () => {
                 required
               />
 
-              <TextField
-                label="Confirm Password"
-                type={showPassword ? "text" : "password"}
-                variant="outlined"
-                margin="dense"
-                size="small"
-                required
-              />
-
               <FormControlLabel
                 control={
                   <Checkbox
@@ -75,13 +66,13 @@ const SignupForm = () => {
                 color="success"
                 style={{ marginTop: 3 }}
               >
-                Sign Up
+                Log in
               </Button>
 
               <Typography align="center" mt={2}>
-                Already have an account?{" "}
-                <Link to="/" style={{ textDecoration: "none" }}>
-                  Log in
+                Don't have an account?{" "}
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  Sign up
                 </Link>
               </Typography>
             </Grid>

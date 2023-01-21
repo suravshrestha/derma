@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 
 import Navbar from "./components/NavBar";
 import SignupForm from "./components/SignupForm";
+import LoginForm from "./components/LoginForm";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -15,7 +16,8 @@ function App() {
 
       <section className="section">
         <Routes>
-          <Route path="/" element={<SignupForm />} />
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
         </Routes>
       </section>
     </div>
