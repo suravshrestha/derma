@@ -18,12 +18,12 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
+import FormControl from "@mui/material/FormControl";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useState } from "react";
-import { FormControl } from "@mui/material";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -45,12 +45,22 @@ const LoginForm = () => {
       const userInfo = { token, ...user };
       userService.setUser(userInfo);
       dispatch(setUser(userInfo));
+      dispatch(setNotification(null));
 
       setUsername("");
       setPassword("");
 
       navigate("/");
     } catch (err) {
+      if (err.response && err.response.status === 500) {
+        return dispatch(
+          setNotification({
+            msg: "Failed to connect to the server.",
+            error: true,
+          })
+        );
+      }
+
       if (err.response && err.response.data) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx (and the server sends error message)
