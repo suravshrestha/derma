@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -38,21 +38,19 @@ export default function NavBar() {
       <AppBar position="static">
         <Container>
           <Toolbar>
-            <Typography
-              variant="h4"
-              component="a"
-              href="/"
-              color="inherit"
-              sx={{
+            <NavLink
+              to="/"
+              style={{
                 flexGrow: 1,
                 fontFamily: "Helvetica",
+                color: "inherit",
                 ":hover": {
                   color: "#fff",
                 },
               }}
             >
-              DERMA.AI
-            </Typography>
+              <Typography variant="h4">DERMA.AI</Typography>
+            </NavLink>
 
             <Typography
               color="inherit"
@@ -67,7 +65,10 @@ export default function NavBar() {
 
             {loggedUser && (
               <Box>
-                <Button sx={{ color: "#fff", fontSize: 16 }}>History</Button>
+                <NavLink to="/history">
+                  <Button sx={{ color: "#fff", fontSize: 16 }}>History</Button>
+                </NavLink>
+
                 <Button
                   sx={{ color: "#fff", fontSize: 16 }}
                   onClick={handleLogout}
