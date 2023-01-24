@@ -49,7 +49,7 @@ export default function NavBar() {
                 },
               }}
             >
-              <Typography variant="h4">DERMA.AI</Typography>
+              <Typography variant="h4">DERMA</Typography>
             </NavLink>
 
             <Typography
