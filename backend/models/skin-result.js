@@ -9,11 +9,25 @@ const skinResultSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  diseaseName: {
+  skinType: {
     type: String,
+    required: true,
   },
   probability: {
     type: Number,
+    required: true,
+  },
+  symptoms: {
+    type: [String],
+  },
+  howCommong: {
+    type: String,
+  },
+  treatments: {
+    type: [String],
+  },
+  duration: {
+    type: String,
   },
   created: {
     type: Date,

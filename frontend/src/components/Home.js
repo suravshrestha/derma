@@ -6,6 +6,8 @@ import skinResultService from "../services/skin-result";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 import { useDispatch } from "react-redux";
 
@@ -34,7 +36,7 @@ const Home = () => {
         );
       }
 
-      if (e.target.files[0].size > 1000000) {
+      if (e.target.files[0].size > 3000000) {
         setLoading(false);
         return dispatch(
           setNotification({
@@ -46,6 +48,8 @@ const Home = () => {
 
       try {
         const data = await skinResultService.uploadSkinImage(e.target.files[0]);
+
+        console.log(data.symptoms);
 
         setResult(data);
         setLoading(false);
@@ -84,15 +88,49 @@ const Home = () => {
   };
 
   return (
-    <Grid container spacing={2} alignItems="center" justifyContent="center">
+    <Grid
+      container
+      spacing={2}
+      alignItems={
+        result && result.skinType === "Healthy skin" ? "center" : "start"
+      }
+      justifyContent="center"
+    >
       <Grid item xs={4} sm={12} md={4}>
-        <Notification />
+        {result && result.skinType !== "Healthy skin" && (
+          <Container>
+            <Box
+              sx={{ p: 2, boxShadow: 3, borderRadius: 1, marginBottom: 5 }}
+              align="center"
+            >
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{
+                  paddingY: 1,
+                  fontWeight: 500,
+                  textAlign: "center",
+                }}
+              >
+                Uploaded image
+              </Typography>
 
-        <Grid item xs={12}>
-          <Typography variant="h5" align="center" sx={{ marginBottom: 2 }}>
-            Add a photo to scan
-          </Typography>
+              <img src={result.image} alt="Uploaded" width="300px" />
+            </Box>
+          </Container>
+        )}
+
+        <Grid sx={{ marginX: 10 }} alignItems="center" justifyContent="center">
+          <Notification />
         </Grid>
+
+        {!loading && (
+          <Grid item xs={12}>
+            <Typography variant="h5" align="center" sx={{ marginBottom: 2 }}>
+              {result ? "Scan another photo?" : "Add a photo to scan"}
+            </Typography>
+          </Grid>
+        )}
 
         <Grid item xs={12}>
           <div className="file is-centered is-boxed is-medium">
@@ -103,13 +141,14 @@ const Home = () => {
                 accept=".png, .jpg, .jpeg"
                 name="resume"
                 onChange={handleImageUpload}
+                disabled={loading}
               />
 
               {loading ? (
                 <div className="file-cta">
                   <CircularProgress
-                    sx={{ margin: 5 }}
-                    size={50}
+                    sx={{ margin: result ? 3 : 5 }}
+                    size={25}
                     thickness={4}
                   />
                   <Typography variant="h5">Processsing...</Typography>
@@ -129,7 +168,15 @@ const Home = () => {
 
       {result && (
         <Grid item xs={12} sm={12} md={8}>
-          <Result image={result.image} />
+          <Result
+            image={result.image}
+            skinType={result.skinType}
+            probability={result.probability * 100}
+            symptoms={result.symptoms}
+            howCommon={result.howCommon}
+            treatments={result.treatments}
+            duration={result.duration}
+          />
         </Grid>
       )}
     </Grid>
