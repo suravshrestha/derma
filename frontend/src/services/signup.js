@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "/api/v1/dj-rest-auth/registration/";
+const baseUrl = "/api/v1/users/";
 
 const signup = async (credentials) => {
   const response = await axios.post(baseUrl, credentials);

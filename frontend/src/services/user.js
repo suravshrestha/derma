@@ -1,6 +1,6 @@
 let token = null;
 
-const STORAGE_KEY = "loggedDermaAIUser";
+const STORAGE_KEY = "loggedDermaUser";
 
 const setUser = (user) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(user));

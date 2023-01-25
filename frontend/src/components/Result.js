@@ -14,12 +14,12 @@ import Avatar from "@mui/material/Avatar";
 import PercentIcon from "@mui/icons-material/Percent";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
 
-const Result = () => {
+const Result = ({ image }) => {
   return (
     <Container>
       <Card sx={{ p: 2, boxShadow: 3, borderRadius: 1 }}>
         <Stack
-          direction={{ sm: "column", md: "row" }}
+          direction={{ sm: "column", lg: "row" }}
           divider={<Divider orientation="vertical" flexItem />}
         >
           <Grid item xs={12} marginY="auto" marginX="auto">
@@ -37,9 +37,10 @@ const Result = () => {
             </Typography>
 
             <CardMedia
+              // crossOrigin="anonymous"
               component="img"
               alt="Uploaded image"
-              image="https://public.bnbstatic.com/static/academy/uploads-original/0ee9d7d59d424a7c8bd7d70c86070beb.png"
+              image={image}
               sx={{ padding: 2, width: "500px" }}
             />
           </Grid>

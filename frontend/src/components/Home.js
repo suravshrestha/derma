@@ -1,17 +1,93 @@
 import Result from "./Result";
 
+import Notification from "./Notification";
+import skinResultService from "../services/skin-result";
+
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { useDispatch } from "react-redux";
+
 import React, { useState } from "react";
+import { setNotification } from "../reducers/notificationReducer";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const handleImageUpload = async (e) => {
+    setLoading(true);
+    if (e.target.files.length > 0) {
+      const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+      if (!allowedTypes.includes(e.target.files[0].type)) {
+        setLoading(false);
+
+        return dispatch(
+          setNotification({
+            msg: "Invalid image type (only png, jpg, jpeg are allowed).",
+            error: true,
+          })
+        );
+      }
+
+      if (e.target.files[0].size > 1000000) {
+        setLoading(false);
+        return dispatch(
+          setNotification({
+            msg: "Image size must be less than 1MB.",
+            error: true,
+          })
+        );
+      }
+
+      try {
+        const data = await skinResultService.uploadSkinImage(e.target.files[0]);
+
+        setResult(data);
+        setLoading(false);
+        dispatch(setNotification(null));
+      } catch (err) {
+        setLoading(false);
+
+        if (err.response && err.response.status === 500) {
+          return dispatch(
+            setNotification({
+              msg: "Failed to connect to the server.",
+              error: true,
+            })
+          );
+        }
+
+        if (err.response && err.response.data) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx (and the server sends error message)
+          return dispatch(
+            setNotification({
+              msg: "Invalid image.",
+              error: true,
+            })
+          );
+        }
+
+        dispatch(
+          setNotification({
+            msg: "Failed to connect to the server.",
+            error: true,
+          })
+        );
+      }
+    }
+  };
 
   return (
     <Grid container spacing={2} alignItems="center" justifyContent="center">
-      <Grid item xs={4} sm={3}>
+      <Grid item xs={4} sm={12} md={4}>
+        <Notification />
+
         <Grid item xs={12}>
           <Typography variant="h5" align="center" sx={{ marginBottom: 2 }}>
             Add a photo to scan
@@ -24,13 +100,9 @@ const Home = () => {
               <input
                 className="file-input"
                 type="file"
+                accept=".png, .jpg, .jpeg"
                 name="resume"
-                onChange={(e) => {
-                  setLoading(true);
-                  if (e.target.files.length > 0) {
-                    console.log("uploading file: ", e.target.files[0].name);
-                  }
-                }}
+                onChange={handleImageUpload}
               />
 
               {loading ? (
@@ -55,9 +127,11 @@ const Home = () => {
         </Grid>
       </Grid>
 
-      <Grid item xs={8} sm={8}>
-        <Result />
-      </Grid>
+      {result && (
+        <Grid item xs={12} sm={12} md={8}>
+          <Result image={result.image} />
+        </Grid>
+      )}
     </Grid>
   );
 };

@@ -3,9 +3,7 @@
 import background from "../assets/home.jpg";
 
 import signUpService from "../services/signup";
-import userService from "../services/user";
 
-import { setUser } from "../reducers/loggedUserReducer";
 import { setNotification } from "../reducers/notificationReducer";
 
 import Notification from "./Notification";
@@ -43,22 +41,20 @@ const SignupForm = () => {
     event.preventDefault();
 
     try {
-      const { key: token, user } = await signUpService.signup({
-        username,
-        password1: password,
-        password2: confirmPassword,
-      });
-
-      const userInfo = { token, ...user };
-      userService.setUser(userInfo);
-      dispatch(setUser(userInfo));
-      dispatch(setNotification(null));
+      await signUpService.signup({ username, password, confirmPassword });
 
       setUsername("");
       setPassword("");
       setConfirmPassword("");
 
       navigate("/");
+
+      dispatch(
+        setNotification({
+          msg: "Registration successful, please login.",
+          error: false,
+        })
+      );
     } catch (err) {
       if (err.response && err.response.status === 500) {
         return dispatch(
@@ -70,21 +66,22 @@ const SignupForm = () => {
       }
 
       if (err.response && err.response.data) {
+        console.log(err.response.data);
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx (and the server sends error message)
-        setUsernameError(err.response.data.username?.[0]);
-        setPasswordError(err.response.data.password1?.[0]);
-        setConfirmPasswordError(err.response.data.password2?.[0]);
-
-        dispatch(
-          setNotification({
-            msg: err.response.data.non_field_errors?.[0],
-            error: true,
-          })
-        );
+        setUsernameError(err.response.data.username);
+        setPasswordError(err.response.data.password);
+        setConfirmPasswordError(err.response.data.confirmPassword);
 
         return;
       }
+
+      dispatch(
+        setNotification({
+          msg: "Failed to connect to the server.",
+          error: true,
+        })
+      );
     }
   };
 
@@ -95,11 +92,11 @@ const SignupForm = () => {
       <Container>
         <Box component="form" sx={{ p: 2, boxShadow: 3, borderRadius: 1 }}>
           <Grid container spacing={5} alignItems="center">
-            <Grid item xs={7}>
+            <Grid item sm={12} lg={7}>
               <img src={background} alt="" />
             </Grid>
 
-            <Grid item xs={5} container direction="column">
+            <Grid item sm={12} lg={5} container direction="column">
               <Notification />
 
               <Typography variant="h4" align="center">

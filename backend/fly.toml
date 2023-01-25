@@ -1,4 +1,4 @@
-# fly.toml file generated for derma on 2023-01-24T11:03:06+05:45
+# fly.toml file generated for derma on 2023-01-25T11:01:00+05:45
 
 app = "derma"
 kill_signal = "SIGINT"
@@ -36,7 +36,3 @@ processes = []
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
-
-[[statics]]
-  guest_path = "/app/public"
-  url_prefix = "/static/"

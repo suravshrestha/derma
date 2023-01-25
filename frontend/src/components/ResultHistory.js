@@ -35,6 +35,7 @@ const ResultHistory = () => {
                 </Typography>
 
                 <CardMedia
+                  // crossOrigin="anonymous"
                   component="img"
                   alt="Uploaded image"
                   image="https://public.bnbstatic.com/static/academy/uploads-original/0ee9d7d59d424a7c8bd7d70c86070beb.png"
