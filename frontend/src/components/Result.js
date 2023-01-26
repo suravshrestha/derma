@@ -142,7 +142,7 @@ const Result = ({
                           fontFamily: "Helvetica",
                         }}
                       >
-                        {(Math.round(probability * 100) / 100).toFixed(2)} %
+                        {(Math.round(probability * 10000) / 100).toFixed(2)} %
                       </Typography>
                     }
                   />

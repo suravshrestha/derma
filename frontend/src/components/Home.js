@@ -169,7 +169,7 @@ const Home = () => {
           <Result
             image={result.image}
             skinType={result.skinType}
-            probability={result.probability * 100}
+            probability={result.probability}
             symptoms={result.symptoms}
             howCommon={result.howCommon}
             treatments={result.treatments}

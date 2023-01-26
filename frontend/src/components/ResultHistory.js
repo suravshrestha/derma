@@ -189,7 +189,7 @@ const ResultHistory = () => {
                               }}
                             >
                               {(
-                                Math.round(result.probability * 100) / 100
+                                Math.round(result.probability * 10000) / 100
                               ).toFixed(2)}{" "}
                               %
                             </Typography>
