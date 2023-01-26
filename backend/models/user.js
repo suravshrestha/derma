@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const SkinResult = require("./skin-result");
+
 const userSchema = new mongoose.Schema({
   username: String,
   passwordHash: String,
@@ -19,6 +21,12 @@ userSchema.set("toJSON", {
     // the passwordHash should not be revealed
     delete returnedObject.passwordHash;
   },
+});
+
+userSchema.pre("remove", async function (next) {
+  // 'this' is the client being removed.
+  await SkinResult.deleteMany({ user: this._id });
+  next();
 });
 
 const User = mongoose.model("User", userSchema);

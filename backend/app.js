@@ -49,11 +49,6 @@ const CLIENT_BUILD_DIR = path.join(__dirname, "build");
 // Serve static files from the React app
 app.use(express.static(CLIENT_BUILD_DIR));
 
-// Handles any frontend URL requests that don't match the ones above
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(CLIENT_BUILD_DIR, "index.html"));
-});
-
 app.use(express.json());
 
 // Register the routers
@@ -69,5 +64,10 @@ app.use("/api/v1/login", loginRouter);
 // handler of requests which result to errors
 // this has to be the last loaded middleware
 app.use(middleware.errorHandler);
+
+// Handles any frontend URL requests that don't match the ones above
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(CLIENT_BUILD_DIR, "index.html"));
+});
 
 module.exports = app;

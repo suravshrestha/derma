@@ -22,6 +22,10 @@ const errorHandler = (err, req, res, next) => {
     return res.status(401).json({
       error: "Token expired.",
     });
+  } else if (err.name === "Error") {
+    return res.status(500).json({
+      error: "Failed to load the ML model.",
+    });
   }
 
   next(err);

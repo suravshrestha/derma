@@ -50,7 +50,6 @@ const Result = ({
               </Typography>
 
               <CardMedia
-                // crossOrigin="anonymous"
                 component="img"
                 alt="Uploaded image"
                 image={image}

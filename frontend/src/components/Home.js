@@ -49,8 +49,6 @@ const Home = () => {
       try {
         const data = await skinResultService.uploadSkinImage(e.target.files[0]);
 
-        console.log(data.symptoms);
-
         setResult(data);
         setLoading(false);
         dispatch(setNotification(null));

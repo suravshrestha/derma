@@ -17,6 +17,16 @@ const uploadSkinImage = async (imageObj) => {
   return response.data;
 };
 
-const exportedObject = { uploadSkinImage };
+const getPreviousResults = async () => {
+  const response = await axios.get(baseUrl, {
+    headers: {
+      Authorization: `Bearer ${userService.getToken()}`,
+    },
+  });
+
+  return response.data;
+};
+
+const exportedObject = { uploadSkinImage, getPreviousResults };
 
 export default exportedObject;
