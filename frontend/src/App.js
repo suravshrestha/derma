@@ -10,6 +10,8 @@ import Home from "./components/Home";
 import ResultHistory from "./components/ResultHistory";
 import PageNotFound from "./components/PageNotFound";
 import Result from "./components/Result";
+import Footer from "./components/Footer";
+import Box from "@mui/material/Box";
 
 import { setUser } from "./reducers/loggedUserReducer";
 import { setNotification } from "./reducers/notificationReducer";
@@ -96,35 +98,45 @@ function App() {
   }, [dispatch, match, navigate]);
 
   return (
-    <div>
-      <Navbar />
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
+        <Navbar />
 
-      <section className="section">
-        <Routes>
-          <Route path="/" element={loggedUser ? <Home /> : <LoginForm />} />
-          <Route
-            path="/signup"
-            element={loggedUser ? <Navigate to="/" /> : <SignupForm />}
-          />
-          <Route
-            path="/history"
-            element={loggedUser ? <ResultHistory /> : <PageNotFound />}
-          />
-          <Route
-            path="/results/:id"
-            element={
-              loggedUser && result ? (
-                <Result {...result} isDetails />
-              ) : (
-                <PageNotFound />
-              )
-            }
-          />
+        <Box className="section" flex={1}>
+          <Routes>
+            <Route path="/" element={loggedUser ? <Home /> : <LoginForm />} />
+            <Route
+              path="/signup"
+              element={loggedUser ? <Navigate to="/" /> : <SignupForm />}
+            />
+            <Route
+              path="/history"
+              element={loggedUser ? <ResultHistory /> : <PageNotFound />}
+            />
+            <Route
+              path="/results/:id"
+              element={
+                loggedUser && result ? (
+                  <Result {...result} isDetails />
+                ) : (
+                  <PageNotFound />
+                )
+              }
+            />
 
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </section>
-    </div>
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Box>
+
+        <Footer />
+      </Box>
+    </>
   );
 }
 

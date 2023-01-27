@@ -226,6 +226,13 @@ const ResultHistory = () => {
                           variant="contained"
                           size="large"
                           href={`/results/${result.id}`}
+                          hover="none"
+                          sx={{
+                            ":hover": {
+                              bgcolor: "primary.main", // theme.palette.primary.main
+                              color: "white",
+                            },
+                          }}
                         >
                           View details
                         </Button>
