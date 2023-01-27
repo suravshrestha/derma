@@ -28,7 +28,7 @@ import React, { useState, useEffect } from "react";
 const ResultHistory = () => {
   const dispatch = useDispatch();
 
-  const [results, setResults] = useState(null);
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const ResultHistory = () => {
             </Typography>
           </Grid>
         ) : (
-          results?.map((result, idx) => (
+          results.map((result, idx) => (
             <Grid item sm={12} md={6} key={idx}>
               <Card sx={{ p: 2, boxShadow: 3, borderRadius: 1 }}>
                 <Grid item xs={12} marginY="auto" marginX="auto">

@@ -18,6 +18,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 
+import React from "react";
+
 const Result = ({
   image,
   skinType,
