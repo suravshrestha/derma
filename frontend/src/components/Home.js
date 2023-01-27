@@ -1,7 +1,11 @@
-import Result from "./Result";
+import { setNotification } from "../reducers/notificationReducer";
+import { setUser } from "../reducers/loggedUserReducer";
 
+import Result from "./Result";
 import Notification from "./Notification";
+
 import skinResultService from "../services/skin-result";
+import userService from "../services/user";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -10,12 +14,13 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
-import { setNotification } from "../reducers/notificationReducer";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -60,6 +65,20 @@ const Home = () => {
             setNotification({
               msg: "Failed to connect to the server.",
               error: true,
+            })
+          );
+        }
+
+        if (err.response && err.response.status === 401) {
+          userService.clearUser();
+          dispatch(setUser(null));
+
+          navigate("/");
+
+          return dispatch(
+            setNotification({
+              msg: "Token expired. You must login to continue",
+              error: false,
             })
           );
         }

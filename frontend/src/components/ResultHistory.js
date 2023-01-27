@@ -1,5 +1,9 @@
 import skinResultService from "../services/skin-result";
+import userService from "../services/user";
+
 import { setNotification } from "../reducers/notificationReducer";
+import { setUser } from "../reducers/loggedUserReducer";
+
 import Notification from "./Notification";
 
 import Container from "@mui/material/Container";
@@ -23,10 +27,12 @@ import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 const ResultHistory = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,6 +47,20 @@ const ResultHistory = () => {
         setResults(results);
         setLoading(false);
       } catch (err) {
+        if (err.response && err.response.status === 401) {
+          userService.clearUser();
+          dispatch(setUser(null));
+
+          navigate("/");
+
+          return dispatch(
+            setNotification({
+              msg: "Token expired. You must login to continue",
+              error: false,
+            })
+          );
+        }
+
         setLoading(false);
         dispatch(
           setNotification({
@@ -52,7 +72,7 @@ const ResultHistory = () => {
     };
 
     fetchResults();
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <Container>
