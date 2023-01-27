@@ -69,7 +69,7 @@ const Home = () => {
           );
         }
 
-        if (err.response && err.response.status === 401) {
+        if (err.response && err.response.data?.error?.token) {
           userService.clearUser();
           dispatch(setUser(null));
 

@@ -12,35 +12,26 @@ const {
 } = require("../services/cloudinary");
 
 skinResultsRouter.get("/", async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
-
-  if (!req.token || !decodedToken.id) {
-    return res
-      .status(401)
-      .json({ error: { token: "Token missing or invalid." } });
-  }
-
-  // populate: Mongoose's join query
   const skinResults = await SkinResult.find({ user: req.user });
 
   res.json(skinResults);
 });
 
 skinResultsRouter.get("/:id", async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
-
-  if (!req.token || !decodedToken.id) {
-    return res
-      .status(401)
-      .json({ error: { token: "Token missing or invalid." } });
-  }
-
-  const skinResult = await SkinResult.findById(req.params.id);
+  const skinResult = await SkinResult.findOne({
+    _id: req.params.id,
+  });
 
   if (!skinResult) {
     return res
       .status(404)
       .json({ error: { skinResult: "Skin result not found." } });
+  }
+
+  if (skinResult.user.toString() !== req.user._id.toString()) {
+    return res
+      .status(401)
+      .json({ error: "User not authorized to view this skin result." });
   }
 
   res.json(skinResult);

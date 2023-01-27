@@ -16,11 +16,11 @@ const errorHandler = (err, req, res, next) => {
     return res.status(400).json({ error: err.message });
   } else if (err.name === "JsonWebTokenError") {
     return res.status(401).json({
-      error: "Invalid token.",
+      error: { token: "Invalid token." },
     });
   } else if (err.name === "TokenExpiredError") {
     return res.status(401).json({
-      error: "Token expired.",
+      error: { token: "Token expired." },
     });
   } else if (err.name === "Error") {
     return res.status(500).json({
@@ -48,7 +48,9 @@ const userExtractor = async (req, res, next) => {
 
   if (!req.token || !decodedToken.id) {
     req.user = null;
-    return res.status(401).json({ error: "token missing or invalid" });
+    return res
+      .status(401)
+      .json({ error: { token: "Token missing or invalid" } });
   }
 
   req.user = await User.findById(decodedToken.id);
