@@ -27,6 +27,16 @@ const getPreviousResults = async () => {
   return response.data;
 };
 
-const exportedObject = { uploadSkinImage, getPreviousResults };
+const getResultById = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${userService.getToken()}`,
+    },
+  });
+
+  return response.data;
+};
+
+const exportedObject = { uploadSkinImage, getPreviousResults, getResultById };
 
 export default exportedObject;

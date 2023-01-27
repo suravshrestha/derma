@@ -21,10 +21,8 @@ import Avatar from "@mui/material/Avatar";
 import CircularProgress from "@mui/material/CircularProgress";
 import PercentIcon from "@mui/icons-material/Percent";
 import CoronavirusIcon from "@mui/icons-material/Coronavirus";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import LanguageIcon from "@mui/icons-material/Language";
-import InfoIcon from "@mui/icons-material/Info";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +41,6 @@ const ResultHistory = () => {
 
       try {
         const results = await skinResultService.getPreviousResults();
-        console.log(results);
         setResults(results);
         setLoading(false);
       } catch (err) {
@@ -79,14 +76,12 @@ const ResultHistory = () => {
       <Notification />
 
       <Grid container spacing={6}>
-        {loading && (
+        {loading ? (
           <Grid item xs={12} align="center">
             <CircularProgress sx={{ margin: 5 }} size={25} thickness={4} />
             <Typography variant="h5">Fetching results...</Typography>
           </Grid>
-        )}
-
-        {results && results.length === 0 ? (
+        ) : results && results.length === 0 ? (
           <Grid item xs={12}>
             <Typography
               variant="h5"
@@ -98,8 +93,10 @@ const ResultHistory = () => {
           </Grid>
         ) : (
           results.map((result, idx) => (
-            <Grid item sm={12} md={6} key={idx}>
-              <Card sx={{ p: 2, boxShadow: 3, borderRadius: 1 }}>
+            <Grid item sm={12} md={6} key={idx} paddingBottom={0}>
+              <Card
+                sx={{ p: 2, boxShadow: 3, borderRadius: 1, paddingBottom: 0 }}
+              >
                 <Grid item xs={12} marginY="auto" marginX="auto">
                   <Typography
                     variant="h5"
@@ -118,7 +115,12 @@ const ResultHistory = () => {
                     component="img"
                     alt="Uploaded image"
                     image={result.image}
-                    sx={{ padding: 2, width: "500px", marginX: "auto" }}
+                    sx={{
+                      padding: 2,
+                      height: "300px",
+                      marginX: "auto",
+                      objectFit: "contain",
+                    }}
                   />
                 </Grid>
 
@@ -219,164 +221,15 @@ const ResultHistory = () => {
 
                       <Divider variant="inset" component="li" />
 
-                      {result.symptoms && result.symptoms.length > 0 && (
-                        <div>
-                          <ListItem>
-                            <ListItemAvatar>
-                              <Avatar>
-                                <InfoIcon color="warning" />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                              disableTypography
-                              primary={
-                                <Typography
-                                  style={{
-                                    fontSize: 17,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  Symptoms
-                                </Typography>
-                              }
-                              secondary={
-                                <Typography
-                                  style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  {result.symptoms.map(
-                                    (symptom) => symptom + ", "
-                                  )}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-
-                          <Divider variant="inset" component="li" />
-                        </div>
-                      )}
-
-                      {result.treatments && result.treatments.length > 0 && (
-                        <div>
-                          <ListItem>
-                            <ListItemAvatar>
-                              <Avatar>
-                                <LocalHospitalIcon color="primary" />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                              disableTypography
-                              primary={
-                                <Typography
-                                  style={{
-                                    fontSize: 17,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  Treatments
-                                </Typography>
-                              }
-                              secondary={
-                                <Typography
-                                  style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  {result.treatments.map(
-                                    (treatment) => treatment + ", "
-                                  )}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-
-                          <Divider variant="inset" component="li" />
-                        </div>
-                      )}
-
-                      {result.howCommon && (
-                        <div>
-                          <ListItem>
-                            <ListItemAvatar>
-                              <Avatar>
-                                <LanguageIcon color="primary" />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                              disableTypography
-                              primary={
-                                <Typography
-                                  style={{
-                                    fontSize: 17,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  How common
-                                </Typography>
-                              }
-                              secondary={
-                                <Typography
-                                  style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  {result.howCommon}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-
-                          <Divider variant="inset" component="li" />
-                        </div>
-                      )}
-
-                      {result.duration && (
-                        <div>
-                          <ListItem>
-                            <ListItemAvatar>
-                              <Avatar>
-                                <AccessTimeIcon color="info" />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                              disableTypography
-                              primary={
-                                <Typography
-                                  style={{
-                                    fontSize: 17,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  Duration
-                                </Typography>
-                              }
-                              secondary={
-                                <Typography
-                                  style={{
-                                    fontSize: 15,
-                                    fontWeight: "bold",
-                                    fontFamily: "Helvetica",
-                                  }}
-                                >
-                                  {result.duration}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-                          <Divider variant="inset" component="li" />
-                        </div>
-                      )}
+                      <Box textAlign="center" marginTop="25px">
+                        <Button
+                          variant="contained"
+                          size="large"
+                          href={`/results/${result.id}`}
+                        >
+                          View details
+                        </Button>
+                      </Box>
                     </List>
                   </CardContent>
                 </Grid>

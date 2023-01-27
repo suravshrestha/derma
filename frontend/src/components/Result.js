@@ -28,6 +28,7 @@ const Result = ({
   howCommon,
   treatments,
   duration,
+  isDetails,
 }) => {
   return (
     <Container>
@@ -36,8 +37,16 @@ const Result = ({
           direction={{ sm: "column", lg: "row" }}
           divider={<Divider orientation="vertical" flexItem />}
         >
-          {skinType === "Healthy skin" && (
-            <Grid item xs={12} marginY="auto" marginX="auto">
+          {(skinType === "Healthy skin" || isDetails) && (
+            <Grid
+              item
+              xs={skinType === "Healthy skin" && 12}
+              lg={isDetails && 8}
+              marginX="auto"
+              align="center"
+              alignItems="start"
+              justifyContent="center"
+            >
               <Typography
                 variant="h5"
                 component="div"
@@ -45,7 +54,6 @@ const Result = ({
                   paddingX: 2,
                   paddingTop: 2,
                   fontWeight: 500,
-                  textAlign: "center",
                 }}
               >
                 Uploaded image
@@ -55,12 +63,12 @@ const Result = ({
                 component="img"
                 alt="Uploaded image"
                 image={image}
-                sx={{ padding: 2, width: "500px" }}
+                sx={{ padding: 2, width: "450px" }}
               />
             </Grid>
           )}
 
-          <Grid item xs={12}>
+          <Grid item lg={isDetails} xs={!isDetails && 12}>
             <Typography
               variant="h5"
               component="div"

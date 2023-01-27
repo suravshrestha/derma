@@ -26,6 +26,26 @@ skinResultsRouter.get("/", async (req, res) => {
   res.json(skinResults);
 });
 
+skinResultsRouter.get("/:id", async (req, res) => {
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
+
+  if (!req.token || !decodedToken.id) {
+    return res
+      .status(401)
+      .json({ error: { token: "Token missing or invalid." } });
+  }
+
+  const skinResult = await SkinResult.findById(req.params.id);
+
+  if (!skinResult) {
+    return res
+      .status(404)
+      .json({ error: { skinResult: "Skin result not found." } });
+  }
+
+  res.json(skinResult);
+});
+
 skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
   const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
 
