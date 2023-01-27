@@ -11,7 +11,9 @@ const loadModel = async (imagePath) => {
   const batchedImage = resizedImage.expandDims(0);
   const input = batchedImage.toFloat().div(tf.scalar(255));
 
-  const model = await tf.loadLayersModel(process.env.ML_MODEL_PATH);
+  const model = await tf.loadLayersModel(
+    process.env.ML_MODEL_PATH || "file://./ml-model/model.json"
+  );
 
   let predictions = await model.predict(input).data();
   predictions = Array.from(predictions);

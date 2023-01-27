@@ -12,7 +12,7 @@ const {
 } = require("../services/cloudinary");
 
 skinResultsRouter.get("/", async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
     return res
@@ -27,7 +27,7 @@ skinResultsRouter.get("/", async (req, res) => {
 });
 
 skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
     return res
@@ -69,7 +69,7 @@ skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
 });
 
 skinResultsRouter.delete("/:id", async (req, res) => {
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
+  const decodedToken = jwt.verify(req.token, process.env.JWT_SECRET_KEY);
 
   if (!req.token || !decodedToken.id) {
     return res
