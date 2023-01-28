@@ -40,7 +40,7 @@ const Result = ({
           {(skinType === "Healthy skin" || isDetails) && (
             <Grid
               item
-              xs={skinType === "Healthy skin" && 12}
+              xs={skinType === "Healthy skin" && 6}
               lg={isDetails && 8}
               marginX="auto"
               align="center"
@@ -63,12 +63,16 @@ const Result = ({
                 component="img"
                 alt="Uploaded image"
                 image={image}
-                sx={{ padding: 2, width: "450px" }}
+                sx={{ padding: 2, width: "400px", objectFit: "contain" }}
               />
             </Grid>
           )}
 
-          <Grid item lg={isDetails} xs={!isDetails && 12}>
+          <Grid
+            item
+            lg={isDetails}
+            xs={!isDetails && (skinType === "Healthy skin" ? 6 : 12)}
+          >
             <Typography
               variant="h5"
               component="div"
