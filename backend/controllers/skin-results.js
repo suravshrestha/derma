@@ -53,7 +53,7 @@ skinResultsRouter.post("/", upload.single("skinImage"), async (req, res) => {
   }
 
   const { skinType, probability, ...otherResults } =
-    await skinResultService.loadModel(req.file.path);
+    await skinResultService.predictFromModel(req.file.path);
 
   if (!skinType || !probability || probability < 0.5) {
     return res.status(400).json({ error: { image: "Invalid image." } });

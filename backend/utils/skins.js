@@ -132,7 +132,7 @@ const skins = [
     ],
     howCommon: "Common non-cancerous (benign) skin growth",
     treatments: [
-      "No treatment required. ut you might want to have it removed if it becomes itchy or irritated or you don’t like the look of it. Your healthcare provider can remove it for you in the office using one of several common methods",
+      "No treatment required. You might want to have it removed if it becomes itchy or irritated or you don’t like the look of it. Your healthcare provider can remove it for you in the office using one of several common methods",
     ],
     duration: "About a month",
   },
