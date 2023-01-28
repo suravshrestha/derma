@@ -165,7 +165,7 @@ const Home = () => {
                 <div className="file-cta">
                   <CircularProgress
                     sx={{ margin: result ? 3 : 5 }}
-                    size={25}
+                    size={35}
                     thickness={4}
                   />
                   <Typography variant="h5">Processsing...</Typography>
