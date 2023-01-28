@@ -66,7 +66,6 @@ const SignupForm = () => {
       }
 
       if (err.response && err.response.data) {
-        console.log(err.response.data);
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx (and the server sends error message)
         setUsernameError(err.response.data.username);
