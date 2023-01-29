@@ -13,7 +13,7 @@ const loadModel = async () => {
 
 const predictFromModel = async (imagePath) => {
   const image = fs.readFileSync(imagePath);
-  let tensor = tf.node.decodeImage(image);
+  let tensor = tf.node.decodeImage(image, 3);
 
   const resizedImage = tensor.resizeNearestNeighbor([300, 300]);
   const batchedImage = resizedImage.expandDims(0);
