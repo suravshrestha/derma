@@ -1,6 +1,9 @@
 # Derma
 An Artificial Intelligence application for predicting skin diseases.
 
+## Demonstration
+https://user-images.githubusercontent.com/24486999/215794690-3a877db8-edc1-4d51-80c1-e0524688e723.mp4
+
 ## Requirements
 - [Node.js](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/try/download/community)
