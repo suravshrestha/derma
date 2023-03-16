@@ -2,7 +2,7 @@
 An Artificial Intelligence application for predicting skin diseases.
 
 ## Demonstration
-https://user-images.githubusercontent.com/24486999/215794690-3a877db8-edc1-4d51-80c1-e0524688e723.mp4
+https://user-images.githubusercontent.com/24486999/225523617-8d4704f9-f130-4ae5-820d-84f40039b1e4.mp4
 
 ## Requirements
 - [Node.js](https://nodejs.org/en/)
