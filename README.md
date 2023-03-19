@@ -26,7 +26,7 @@ npm install
 cd ../backend
 npm install
 ```
-Have patience, this might take a while.
+This might take a while to complete.
 
 4. Create a `.env` file inside the backend folder and set the following credentials:
 ```
@@ -48,4 +48,4 @@ npm run dev
 npm run start
 ```
 
-The application can be viewed at http://localhost:3000/
+You can view the application at http://localhost:3000/.
