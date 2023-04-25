@@ -7,7 +7,7 @@ https://user-images.githubusercontent.com/24486999/225523617-8d4704f9-f130-4ae5-
 ## Requirements
 - [Node.js](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/try/download/community)
-- [Python 3.6.0 or higher](https://www.python.org/downloads/)
+- [Python 3.6 or higher](https://www.python.org/downloads/)
 
 ## Usage
 1. Clone the repository
