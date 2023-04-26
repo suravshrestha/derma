@@ -23,7 +23,7 @@ import FormControl from "@mui/material/FormControl";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -37,14 +37,13 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const { key: token, user } = await loginService.login({
+      const user = await loginService.login({
         username,
         password,
       });
 
-      const userInfo = { token, ...user };
-      userService.setUser(userInfo);
-      dispatch(setUser(userInfo));
+      userService.setUser(user);
+      dispatch(setUser(user));
       dispatch(setNotification(null));
 
       setUsername("");
@@ -85,11 +84,11 @@ const LoginForm = () => {
       <Container>
         <Box component="form" sx={{ p: 2, boxShadow: 3, borderRadius: 1 }}>
           <Grid container spacing={5} alignItems="center">
-            <Grid item xs={7}>
+            <Grid item sm={12} md={7}>
               <img src={background} alt="" />
             </Grid>
 
-            <Grid item xs={5} container direction="column">
+            <Grid item sm={12} md={5} container direction="column">
               <Notification />
 
               <Typography variant="h4" align="center">

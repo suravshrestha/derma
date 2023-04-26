@@ -10,9 +10,7 @@ const SignupForm = () => {
           </div>
 
           <div className="column is-5">
-            <div className="is-size-3 has-text-weight-medium mt-6">
-              DERMA
-            </div>
+            <div className="is-size-3 has-text-weight-medium mt-6">DERMA</div>
 
             <div className="py-2 is-size-5 has-text-weight-normal">
               Create your account

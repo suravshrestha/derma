@@ -1,0 +1,13 @@
+.file-input[disabled] + .file-cta {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.file-cta .file-label {
+  cursor: inherit;
+}
+
+.file-cta {
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}

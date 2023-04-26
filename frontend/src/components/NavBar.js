@@ -10,11 +10,14 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
+import React from "react";
 
 export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const loggedUser = useSelector((state) => state.loggedUser);
 
@@ -34,12 +37,19 @@ export default function NavBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <AppBar position="static">
         <Container>
           <Toolbar>
             <NavLink
               to="/"
+              onClick={() => {
+                if (location.pathname === "/") {
+                  navigate(0);
+                } else {
+                  navigate("/");
+                }
+              }}
               style={{
                 flexGrow: 1,
                 fontFamily: "Helvetica",
