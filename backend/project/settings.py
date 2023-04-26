@@ -35,7 +35,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # Note: DEBUG must be True if static files are served locally.
 DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS"), "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS",
+                          "127.0.0.1,localhost").split(",")
 
 # Application definition
 
@@ -76,11 +77,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    os.getenv("DJANGO_CORS_ORIGIN_WHITELIST"),
-    'http://localhost:3000',
-    'http://localhost:8000',
-)
+CORS_ORIGIN_WHITELIST = os.getenv("DJANGO_CORS_ORIGIN_WHITELIST",
+                                  "http://localhost:3000,http://localhost:8000").split(",")
+
 
 ROOT_URLCONF = 'project.urls'
 
