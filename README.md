@@ -1,5 +1,5 @@
 # Derma
-An Artificial Intelligence application for predicting skin diseases.
+Derma is an AI skin health assistant which helps to identify your possible skin condition with just few clicks, before things get worse.
 
 ## Demonstration
 https://user-images.githubusercontent.com/24486999/225523617-8d4704f9-f130-4ae5-820d-84f40039b1e4.mp4
