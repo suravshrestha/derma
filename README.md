@@ -2,7 +2,9 @@
 Derma is an AI skin health assistant which helps to identify your possible skin condition with just few clicks, before things get worse.
 
 ## Demonstration
-https://user-images.githubusercontent.com/24486999/225523617-8d4704f9-f130-4ae5-820d-84f40039b1e4.mp4
+
+https://github.com/suravshrestha/derma/assets/24486999/2eb3ca12-ad70-4bf5-b041-39177d1946c4
+
 
 ## Requirements
 - [Node.js](https://nodejs.org/en/)
